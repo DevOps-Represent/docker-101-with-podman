@@ -19,7 +19,7 @@ nginx                          latest              7042885a156a        4 weeks a
 The `latest` tag gets appended to the latest build of a particular image name. However, you can add more tags to that image ID by running:
 
 ```
-docker tag 98be87baf87e banana-smith-image:tag-2
+podman tag 98be87baf87e banana-smith-image:tag-2
 ```
 
 Where you can replace `98be87baf87e` with the IMAGE ID of your image. Now, if you run `docker images`, you should see:
@@ -36,7 +36,7 @@ nginx                          latest              7042885a156a        4 weeks a
 Note that you can also use repositories and tags as a source image. For example:
 
 ```
-docker tag banana-smith-image:latest banana-smith-image:tag-3
+podman tag banana-smith-image:latest banana-smith-image:tag-3
 ```
 
 Now, when you run `docker images`, you should get:
@@ -68,19 +68,19 @@ We're setting it to **Private**. You can change the repository privileges anytim
 Now, remember the images we had earlier? We're going to add a tag - except the tag will be your Docker Hub username, and the repository you have created:
 
 ```
-docker tag banana-smith-image:latest banana-smith/my-first-repo
+podman tag banana-smith-image:latest banana-smith/my-first-repo
 ```
 
 Where `banana-smith` is your Docker Hub username. Finally, we'll login to Docker Hub with the following command:
 
 ```
-docker login
+podman login
 ```
 
 Use your Docker Hub credentials to login. Once you're logged in, you can push your image to Docker Hub:
 
 ```
-docker push banana-smith/my-first-repo
+podman push banana-smith/my-first-repo
 ```
 
 Now, we can check if we've uploaded our image to Docker hub. With your browser, go to your Docker Hub repository and check under ***Tags***. Do you see your image?
@@ -88,7 +88,7 @@ Now, we can check if we've uploaded our image to Docker hub. With your browser, 
 To verify that your image can be pulled down, you can try running:
 
 ```
-docker pull banana-smith/my-first-repo
+podman pull banana-smith/my-first-repo
 ```
 
 #### Exercise

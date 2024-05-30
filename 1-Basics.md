@@ -10,7 +10,7 @@ In this section, we'll be talking about what it means to do a `docker run` and a
 Before we start with anything, let's run the following command in the command line interface (CLI):
 
 ```
-docker run hello-world
+podman run hello-world
 ```
 
 This runs a pre-existing image called `hello-world` on your Docker host, which runs and outputs some cute text.
@@ -20,7 +20,7 @@ This runs a pre-existing image called `hello-world` on your Docker host, which r
 Running a `docker pull` means that your Docker Host downloads an image from the registry (but does not run it). So try running the following command:
 
 ```
-docker pull busybox
+podman pull busybox
 ```
 
 This will pull the `busybox` image from the default Docker registry: https://hub.docker.com/explore/. You can also try pulling other images from the registry if you want!
@@ -28,13 +28,13 @@ This will pull the `busybox` image from the default Docker registry: https://hub
 Now that you have the `busybox` image, you can try running it:
 
 ```
-docker run busybox
+podman run busybox
 ```
 
 Notice that nothing happened. *This is on purpose* - we didn't specify a command, so all Docker did was to load up `busybox`, ran an empty command, then exited. So what does it look like when we want to run a command? Try:
 
 ```
-docker run busybox echo "Hallo Avocado\!"
+podman run busybox echo "Hallo Avocado\!"
 ```
 
 This will load up the `busybox` image, then run a command which outputs `Hallo Avocado!`. Look at you, you command-line *slayer*.
@@ -45,7 +45,7 @@ This will load up the `busybox` image, then run a command which outputs `Hallo A
 Oh homes, now you have two images downloaded. You can check the Docker images you have by running `images`:
 
 ```
-docker images
+podman images
 ```
 
 This should list something similar to:
@@ -61,7 +61,7 @@ busybox          latest          3a093384ac30        2 weeks ago         1.2MB
 Okay. Now let's try running a website - say, an Nginx application that just serves the default page. For this, all we have to do is run:
 
 ```
-docker run nginx:latest
+podman run nginx:latest
 ```
 
 Notice that we didn't have to do a `docker pull`. What essentially happens is shown in the output of the command:
@@ -84,13 +84,13 @@ But there's no website, right? How do we access it? It turns out that we need to
 But wait, it seems to be stuck? Not really. Docker is just running on attached mode, so we also need to run Docker in a *detached mode* it looks like. Just type *Ctrl-C* to cancel the running container, and rerun it with as the following:
 
 ```
-docker run -d -P --name banana-smith-container nginx
+podman run -d -P --name banana-smith-container nginx
 ```
 
 `-d` runs Docker in *detached mode*, and `-P` publishes all exposed ports so we can access it. `banana-smith` is what we're naming the container - feel free to change it to any name you want. We can then find out how to access the site by running:
 
 ```
-docker port banana-smith-container
+podman port banana-smith-container
 ```
 
 Which will give us something like:
@@ -108,7 +108,7 @@ http://localhost:32768
 Neat, right? Finally, stop the container by running:
 
 ```
-docker stop banana-smith-container
+podman stop banana-smith-container
 ```
 
 
@@ -117,7 +117,7 @@ docker stop banana-smith-container
 Note that the Docker image you're running also contains other things. It has a small slice of the operating system, and this slice is actually available to you. You can access the command line inside the `nginx` container we were running earlier by running:
 
 ```
-docker run -it nginx:latest /bin/bash
+podman run -it nginx:latest /bin/bash
 ```
 
 The `-it` flag attaches you to an interactive "console" within the container. `/bin/bash` is a shell that exists within the container. To see where the page that you saw before was, try running the following while inside the console:

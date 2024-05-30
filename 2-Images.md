@@ -11,7 +11,7 @@ A `Dockerfile` is the traditional naming of a file which contains instructions o
 Before we start making Docker images, it's best if we familiarize ourselves with how images are stored in your Docker host (effectively, your laptop). Run the following command to get a list:
 
 ```
-docker images
+podman images
 ```
 
 This will produce a list of images on your laptop that look like this:
@@ -26,7 +26,7 @@ nginx                      latest              7042885a156a        4 weeks ago  
 This effectively lists the images you have, the tags they are associated with, and the image ID. Note that you can also use image IDs as a reference when running Docker commands. Like so:
 
 ```
-docker run -it 7042885a156a /bin/bash
+podman run -it 7042885a156a /bin/bash
 ```
 
 #### Dockerfiles
@@ -42,36 +42,36 @@ This basically means that we're starting from the `nginx:mainline-alpine` image 
 To build the image, we can then run the following from inside the `docker-101` directory:
 
 ```
-docker build -t banana-smith-image .
+podman build -t banana-smith-image .
 ```
 
 This takes our `Dockerfile` file, reads the instructions, and creates the basic image on your Docker host called `banana-smith-image`. Again, change the name if you want. You can verify that the image is built by listing the images you now have:
 
 ```
-docker images
+podman images
 ```
 
 You should see the image you just created. Finally, run the image by running:
 
 ```
-docker run -d -P --name banana-smith-container banana-smith-image
+podman run -d -P --name banana-smith-container banana-smith-image
 ```
 
 To see that it's actually running, check the port by:
 
 ```
-docker port banana-smith-container
+podman port banana-smith-container
 ```
 If you get an error, something like :
 
 ```
-docker: Error response from daemon: Conflict. The container name "/banana-smith-container" is already in use by container "dd22b733a855cafc3a9235efbe892828ca82a9ee02cd30b9c7120ba891825414". You have to remove (or rename) that container to be able to reuse that name.
+podman: Error response from daemon: Conflict. The container name "/banana-smith-container" is already in use by container "dd22b733a855cafc3a9235efbe892828ca82a9ee02cd30b9c7120ba891825414". You have to remove (or rename) that container to be able to reuse that name.
 See 'docker run --help'.
 ```
 this might be because you already had a banana-smith-container and a banana-smith-image. You can remove the container by running
 
 ```
-docker rm banana-smith-container
+podman rm banana-smith-container
 ```
 
 ⚠️ Did you get the following error? ⚠️
@@ -82,25 +82,25 @@ Error response from daemon: You cannot remove a running container b854db1f962007
 We need to stop the container first by running
 
 ```
-docker stop banana-smith-container
+podman stop banana-smith-container
 ```
 Let's try that again:
 
 ```
-docker rm banana-smith-container
+podman rm banana-smith-container
 ```
 
 and remove the image by running
 
 ```
-docker image rm banana-smith-image
+podman image rm banana-smith-image
 ```
 Then try building the image again.
 
 Then open up your browser, and access the same page - e.g., `http://localhost:32768`. Once done, cleanup the running container by running:
 
 ```
-docker stop banana-smith-container
+podman stop banana-smith-container
 ```
 
 #### Dockerfile instructions breakdown
@@ -129,7 +129,7 @@ The `RUN` directive runs the command specified (in this case, `rm /etc/nginx/con
 To build the image, run the same command as before:
 
 ```
-docker build -t banana-smith-image .
+podman build -t banana-smith-image .
 ```
 
 Now, if you list out your images with `docker images`, you'll see something like:
@@ -145,13 +145,13 @@ nginx                          latest              7042885a156a
 What you might have noticed is that the IMAGE ID is now different. Run it the way you've run any other image:
 
 ```
-docker run -d -P --name banana-smith-container banana-smith-image
+podman run -d -P --name banana-smith-container banana-smith-image
 ```
 
 Then check the port it's running under:
 
 ```
-docker port banana-smith-container
+podman port banana-smith-container
 ```
 
 Then open up your browser, and access the same page - e.g., `http://localhost:32768`. What you should see is your new, fresh image!
