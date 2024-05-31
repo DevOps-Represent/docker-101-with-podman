@@ -67,7 +67,7 @@ podman run nginx:latest
 Notice that we didn't have to do a `docker pull`. What essentially happens is shown in the output of the command:
 
 ```
-$ docker run nginx
+$ podman run nginx
 Unable to find image 'nginx:latest' locally
 latest: Pulling from library/nginx
 177e7ef0df69: Pull complete 
